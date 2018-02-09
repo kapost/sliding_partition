@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 11.0"
-  spec.add_development_dependency "gemsmith", "~> 7.7"
+  spec.add_development_dependency "gemsmith", "~> 10.4.2"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "pry-state"
@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rb-fsevent" # Guard file events for OSX.
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "terminal-notifier"
-  spec.add_development_dependency "rubocop", "~> 0.41"
+  spec.add_development_dependency "rubocop", "~> 0.52"
   spec.add_development_dependency "codeclimate-test-reporter"
   spec.add_development_dependency "awesome_print"
 
