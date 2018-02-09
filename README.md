@@ -8,7 +8,7 @@
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
-# Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Screencasts](#screencasts)
@@ -16,7 +16,6 @@
 - [Setup](#setup)
 - [Usage](#usage)
   - [Rails](#rails)
-- [config/sliding_partitions.rb](#configsliding_partitionsrb)
 - [Tests](#tests)
 - [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
