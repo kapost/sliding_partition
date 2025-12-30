@@ -9,7 +9,7 @@ module SlidingPartition
          end
 
   class Job < base
-    def perform(*)
+    def perform(*_args)
       SlidingPartition.rotate!
     end
   end
