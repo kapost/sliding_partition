@@ -2,6 +2,7 @@
 
 require "sliding_partition/identity"
 require "sliding_partition/definition"
+require "sliding_partition/job"
 
 require "sliding_partition/railtie" if defined?(Rails)
 

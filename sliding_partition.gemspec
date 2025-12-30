@@ -17,23 +17,16 @@ Gem::Specification.new do |spec|
     spec.cert_chain = [File.expand_path("~/.ssh/gem-public.pem")]
   end
 
-  spec.add_dependency "activerecord", ">= 4.2.0", "<= 6.0.0"
-  spec.add_dependency "pg"
+  spec.add_dependency "activerecord", ">= 8.1"
+  spec.add_dependency "pg", ">= 1.1"
   spec.add_dependency "rounding"
 
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 11.0"
-  spec.add_development_dependency "gemsmith", "~> 10.4.2"
+  spec.add_development_dependency "bundler"
+  spec.add_development_dependency "rake"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-byebug"
-  spec.add_development_dependency "pry-state"
-  spec.add_development_dependency "rspec", "~> 3.5"
-  spec.add_development_dependency "rb-fsevent" # Guard file events for OSX.
-  spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "terminal-notifier"
-  spec.add_development_dependency "rubocop", "~> 0.52"
-  spec.add_development_dependency "codeclimate-test-reporter"
-  spec.add_development_dependency "awesome_print"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rubocop"
 
   spec.files = Dir["lib/**/*", "vendor/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
