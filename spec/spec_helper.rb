@@ -9,9 +9,6 @@ end
 
 require "pry"
 require "pry-byebug"
-require "pry-state"
-
-require "awesome_print"
 
 
 require "sliding_partition"

@@ -4,7 +4,6 @@ require "spec_helper"
 ENV["TZ"] = "UTC"
 
 require "active_record"
-require "awesome_print"
 
 RSpec.describe "SlidingPartition" do
 
@@ -121,7 +120,7 @@ RSpec.describe "SlidingPartition" do
     def insert(timestamp)
       connection.insert <<-SQL
         INSERT INTO test_events (name, event_at, result)
-        VALUES ('test', '#{timestamp.to_s(:db)}', 'success')
+        VALUES ('test', '#{timestamp.to_formatted_s(:db)}', 'success')
       SQL
     end
 

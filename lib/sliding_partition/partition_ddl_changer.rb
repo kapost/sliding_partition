@@ -72,8 +72,8 @@ module SlidingPartition
         connection.execute <<-SQL
         INSERT INTO #{to} (
           SELECT * FROM #{from}
-          WHERE #{time_column} >= TIMESTAMP '#{partition.timestamp_floor.to_s(:db)}'
-            AND #{time_column} <  TIMESTAMP '#{partition.timestamp_ceiling.to_s(:db)}'
+          WHERE #{time_column} >= TIMESTAMP '#{partition.timestamp_floor.to_formatted_s(:db)}'
+            AND #{time_column} <  TIMESTAMP '#{partition.timestamp_ceiling.to_formatted_s(:db)}'
         );
         SQL
       end
@@ -90,7 +90,7 @@ module SlidingPartition
     end
 
     def partition_table_exists?(partition)
-      connection.tables.include?(partition.table_name)
+      connection.data_sources.include?(partition.table_name)
     end
 
     def update_trigger_function!
@@ -110,8 +110,8 @@ module SlidingPartition
     def trigger_function_sql
       conditions = partitions.reverse_each.map do |partition|
         <<-SQL
-        ( NEW.#{time_column} >= TIMESTAMP '#{partition.timestamp_floor.to_s(:db)}' AND
-          NEW.#{time_column} <  TIMESTAMP '#{partition.timestamp_ceiling.to_s(:db)}'
+        ( NEW.#{time_column} >= TIMESTAMP '#{partition.timestamp_floor.to_formatted_s(:db)}' AND
+          NEW.#{time_column} <  TIMESTAMP '#{partition.timestamp_ceiling.to_formatted_s(:db)}'
         ) THEN INSERT INTO #{partition.table_name} VALUES (NEW.*);
         SQL
       end
@@ -121,7 +121,7 @@ module SlidingPartition
       RETURNS TRIGGER AS $$
       BEGIN
           IF #{conditions.join("\n ELSIF ")}
-          ELSIF (NEW.#{time_column} < TIMESTAMP '#{partitions.first_partition_timestamp.to_s(:db)}')
+          ELSIF (NEW.#{time_column} < TIMESTAMP '#{partitions.first_partition_timestamp.to_formatted_s(:db)}')
             THEN RETURN NULL; -- Just discard pre-historic rows
           ELSE
               RAISE EXCEPTION 'Date out of range.  Fix the measurement_insert_trigger() function!';
@@ -141,15 +141,15 @@ module SlidingPartition
 
       ALTER TABLE #{partition.table_name}
       ADD CHECK (
-        #{time_column} >= TIMESTAMP '#{partition.timestamp_floor.to_s(:db)}' AND
-        #{time_column} <  TIMESTAMP '#{partition.timestamp_ceiling.to_s(:db)}'
+        #{time_column} >= TIMESTAMP '#{partition.timestamp_floor.to_formatted_s(:db)}' AND
+        #{time_column} <  TIMESTAMP '#{partition.timestamp_ceiling.to_formatted_s(:db)}'
       )
       SQL
     end
 
     def candidate_tables
-      connection.tables.map do |candidate|
-        next unless candidate.starts_with?(inherited_table_name.to_s + "_")
+      connection.data_sources.map do |candidate|
+        next unless candidate.start_with?(inherited_table_name.to_s + "_")
 
         begin
           Time.strptime(candidate, [inherited_table_name, suffix].join("_"))
